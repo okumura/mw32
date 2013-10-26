@@ -22,12 +22,20 @@
 
 #pragma once
 
-#ifndef MW32_H
-#define MW32_H
+#ifndef MW32_PROCESS_H
+#define MW32_PROCESS_H
 
-#include "mw32/hash.h"
-#include "mw32/module.h"
-#include "mw32/process.h"
-#include "mw32/thread.h"
+#include "mw32/types.h"
 
-#endif /* MW32_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+DWORD   mw32CurrentPid();
+#define mw32CurrentProcess() ((HANDLE) (LONG_PTR) -1)
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* MW32_PROCESS_H */

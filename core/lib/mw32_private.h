@@ -22,12 +22,43 @@
 
 #pragma once
 
-#ifndef MW32_H
-#define MW32_H
+#ifndef MW32_PRIVATE_H
+#define MW32_PRIVATE_H
 
-#include "mw32/hash.h"
-#include "mw32/module.h"
-#include "mw32/process.h"
-#include "mw32/thread.h"
+#include <winternl.h>
 
-#endif /* MW32_H */
+typedef struct _MW32_PEB_LDR_DATA { 
+	ULONG      Length;
+	BOOLEAN    Initialized;
+	PVOID      SsHandle;
+	LIST_ENTRY InLoadOrderModuleList;
+	LIST_ENTRY InMemoryOrderModuleList;
+	LIST_ENTRY InInitializationOrderModuleList;
+} _MW32_PEB_LDR_DATA, *PMW32_PEB_LDR_DATA;
+
+struct MODULE_ENTRY {
+	LIST_ENTRY     InLoadOrderModuleList;
+	LIST_ENTRY     InMemoryOrderModuleList;
+	LIST_ENTRY     InInitializationOrderModuleList;
+	LPVOID         BaseAddress;
+	LPVOID         EntryPoint;
+	ULONG          SizeOfImage;
+	UNICODE_STRING FullDllName;
+	UNICODE_STRING BaseDllName;
+	ULONG          Flags;
+	SHORT          LoadCount;
+	SHORT          TlsIndex;
+	HANDLE         SectionHandle;
+	ULONG          CheckSum;
+	ULONG          TimeDateStamp;
+};
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* MW32_PRIVATE_H */

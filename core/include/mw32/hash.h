@@ -22,12 +22,22 @@
 
 #pragma once
 
-#ifndef MW32_H
-#define MW32_H
+#ifndef MW32_HASH_H
+#define MW32_HASH_H
 
-#include "mw32/hash.h"
-#include "mw32/module.h"
-#include "mw32/process.h"
-#include "mw32/thread.h"
+#include "mw32/types.h"
 
-#endif /* MW32_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+DWORD mw32HashStringA(LPCSTR s);
+DWORD mw32HashStringW(LPCSTR s);
+DWORD mw32HashStringLowerA(LPCSTR s);
+DWORD mw32HashStringLowerW(LPCWSTR s);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* MW32_HASH_H */

@@ -22,12 +22,27 @@
 
 #pragma once
 
-#ifndef MW32_H
-#define MW32_H
+#ifndef MW32_DEFS_H
+#define MW32_DEFS_H
 
-#include "mw32/hash.h"
-#include "mw32/module.h"
-#include "mw32/process.h"
-#include "mw32/thread.h"
+enum {
+	MW32_HASH_LOWERW_NTDLL_DLL      = 0x1cde56f9,
+	MW32_HASH_LOWERW_KERNEL32_DLL   = 0xc705800d,
+	MW32_HASH_LOWERW_KERNELBASE_DLL = 0xedb36c29,
 
-#endif /* MW32_H */
+	MW32_HASH_LOWERW_USER32_DLL     = 0xd2584e27,
+	MW32_HASH_LOWERW_ADVAPI32_DLL   = 0x10258865,
+	MW32_HASH_LOWERW_SHELL32_DLL    = 0x9efe1188,
+	MW32_HASH_LOWERW_SHLWAPI_DLL    = 0x351c1a57,
+
+	MW32_HASH_LOWERW_GDI32_DLL      = 0x8bff619c,
+	
+	MW32_HASH_LOWERW_CRYPT32_DLL    = 0x442054aa,
+	MW32_HASH_LOWERW_WS2_32_DLL     = 0x33bb3fa7,
+	MW32_HASH_LOWERW_WININET_DLL    = 0x4769bcd9,
+	MW32_HASH_LOWERW_WINHTTP_DLL    = 0xb41bc7f7,
+
+	MW32_HASH_LOWERW_SETUPAPI_DLL   = 0x83886cb0,
+};
+
+#endif /* MW32_DEFS_H */

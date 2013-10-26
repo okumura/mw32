@@ -22,12 +22,17 @@
 
 #pragma once
 
-#ifndef MW32_H
-#define MW32_H
+#ifndef MW32_TYPES_H
+#define MW32_TYPES_H
 
-#include "mw32/hash.h"
-#include "mw32/module.h"
-#include "mw32/process.h"
-#include "mw32/thread.h"
+#include <windows.h>
 
-#endif /* MW32_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* MW32_TYPES_H */

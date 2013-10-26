@@ -20,14 +20,12 @@
  * THE SOFTWARE.
  */
 
-#pragma once
-
-#ifndef MW32_H
-#define MW32_H
-
-#include "mw32/hash.h"
-#include "mw32/module.h"
 #include "mw32/process.h"
-#include "mw32/thread.h"
 
-#endif /* MW32_H */
+DWORD mw32CurrentPid() {
+#if defined(_M_X64)
+	return __readgsdword(0x40);
+#else
+	return __readfsdword(0x20);
+#endif
+}

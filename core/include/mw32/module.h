@@ -22,12 +22,37 @@
 
 #pragma once
 
-#ifndef MW32_H
-#define MW32_H
+#ifndef MW32_MODULE_H
+#define MW32_MODULE_H
 
-#include "mw32/hash.h"
-#include "mw32/module.h"
-#include "mw32/process.h"
-#include "mw32/thread.h"
+#include "mw32/types.h"
 
-#endif /* MW32_H */
+typedef struct MODULE_ENTRY MODULE_ENTRY;
+typedef MODULE_ENTRY *HMODULE_ENTRY;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+HMODULE_ENTRY mw32ModuleFindFirst();
+HMODULE_ENTRY mw32ModuleFindNext(HMODULE_ENTRY hEntry);
+
+HMODULE_ENTRY mw32ModuleByHandle(HANDLE hModule);
+HMODULE_ENTRY mw32ModuleByBaseName(DWORD dwLowerHash);
+HMODULE_ENTRY mw32ModuleByFullName(DWORD dwLowerHash);
+
+BOOL    mw32ModuleIsValid(HMODULE_ENTRY hEntry);
+LPVOID  mw32ModuleGetBaseAddress(HMODULE_ENTRY hEntry);
+HMODULE mw32ModuleGetHandle(HMODULE_ENTRY hEntry);
+LPCWSTR mw32ModuleGetBaseName(HMODULE_ENTRY hEntry);
+LPCWSTR mw32ModuleGetFullName(HMODULE_ENTRY hEntry);
+
+#ifdef __cplusplus
+}
+#endif
+
+#define MW32_FOR_EACH_MODULE(varname) \
+	for (varname = mw32ModuleFindFirst();\
+			varname; varname = mw32ModuleFindNext(varname))\
+
+#endif /* MW32_MODULE_H */
