@@ -1,0 +1,38 @@
+# macosx
+.DS_Store
+*.xcodeproj
+DerivedData
+
+# binary objects
+*.o
+*.a
+bin
+obj
+
+# Visual Studio objects
+*.suo
+*.ncb
+*.vcproj.*.user
+*.coverage
+*.vcxproj
+*.vcxproj.*
+
+# Visual Studio 2010 objects
+*.opensdf
+*.sdf
+ipch
+
+# Visual Studio files
+*.sln
+*.vcproj
+*.rules
+
+# make files
+*.Makefile
+*.target.mk
+GypAndroid.mk
+Makefile
+gyp-mac-tool
+
+# ninja
+out
