@@ -36,7 +36,7 @@ typedef struct _MW32_PEB_LDR_DATA {
 	LIST_ENTRY InInitializationOrderModuleList;
 } _MW32_PEB_LDR_DATA, *PMW32_PEB_LDR_DATA;
 
-struct MODULE_ENTRY {
+struct MW32MODULE {
 	LIST_ENTRY     InLoadOrderModuleList;
 	LIST_ENTRY     InMemoryOrderModuleList;
 	LIST_ENTRY     InInitializationOrderModuleList;

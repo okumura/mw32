@@ -27,32 +27,67 @@
 
 #include "mw32/types.h"
 
-typedef struct MODULE_ENTRY MODULE_ENTRY;
-typedef MODULE_ENTRY *HMODULE_ENTRY;
+typedef struct MW32MODULE MW32MODULE;
+typedef MW32MODULE *HMW32MODULE;
+
+typedef struct MW32PROC {
+	DWORD dwIndex;
+	DWORD dwOrdinal;
+	LPCSTR lpszName;
+	FARPROC lpAddress;
+} MW32PROC, *LPMW32PROC;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-HMODULE_ENTRY mw32ModuleFindFirst();
-HMODULE_ENTRY mw32ModuleFindNext(HMODULE_ENTRY hEntry);
+HMW32MODULE mw32ModuleFirst();
+HMW32MODULE mw32ModuleNext(HMW32MODULE hEntry);
+HMW32MODULE mw32ModuleFromHandle(HANDLE hModule);
+HMW32MODULE mw32ModuleFromBaseName(DWORD dwLowerHash);
+HMW32MODULE mw32ModuleFromFullName(DWORD dwLowerHash);
 
-HMODULE_ENTRY mw32ModuleByHandle(HANDLE hModule);
-HMODULE_ENTRY mw32ModuleByBaseName(DWORD dwLowerHash);
-HMODULE_ENTRY mw32ModuleByFullName(DWORD dwLowerHash);
+BOOL    mw32ModuleIsValid(HMW32MODULE hEntry);
+LPVOID  mw32ModuleGetBaseAddress(HMW32MODULE hEntry);
+HMODULE mw32ModuleGetHandle(HMW32MODULE hEntry);
+LPCWSTR mw32ModuleGetBaseName(HMW32MODULE hEntry);
+LPCWSTR mw32ModuleGetFullName(HMW32MODULE hEntry);
 
-BOOL    mw32ModuleIsValid(HMODULE_ENTRY hEntry);
-LPVOID  mw32ModuleGetBaseAddress(HMODULE_ENTRY hEntry);
-HMODULE mw32ModuleGetHandle(HMODULE_ENTRY hEntry);
-LPCWSTR mw32ModuleGetBaseName(HMODULE_ENTRY hEntry);
-LPCWSTR mw32ModuleGetFullName(HMODULE_ENTRY hEntry);
+LPMW32PROC
+mw32ModuleProcFirst(
+		HMW32MODULE hEntry,
+		LPMW32PROC lpProc);
+
+LPMW32PROC
+mw32ModuleProcNext(
+		HMW32MODULE hEntry,
+		LPMW32PROC lpProc);
+
+DWORD
+mw32ModuleGetProcs(
+		HMW32MODULE hEntry,
+		FARPROC *lpDst,
+		const DWORD *lpdwHashes,
+		DWORD dwCount);
+
+FARPROC
+mw32ModuleGetProc(
+		HMW32MODULE hEntry,
+		DWORD dwHash);
 
 #ifdef __cplusplus
 }
 #endif
 
 #define MW32_FOR_EACH_MODULE(varname) \
-	for (varname = mw32ModuleFindFirst();\
-			varname; varname = mw32ModuleFindNext(varname))\
+	for (varname = mw32ModuleFirst();\
+			varname; varname = mw32ModuleNext(varname))\
+
+#define MW32_MODULE_GET_PROCS(hEntry, lpDst, Src) \
+	(mw32ModuleGetProcs(hEntry, lpDst, Src, _countof(Src)) == _countof(Src))
+
+#define MW32_MODULE_FOR_EACH_PROC(hEntry, lpProc) \
+	for (lpProc = mw32ModuleProcFirst(hEntry, lpProc);\
+			lpProc; lpProc = mw32ModuleProcNext(hEntry, lpProc))\
 
 #endif /* MW32_MODULE_H */
